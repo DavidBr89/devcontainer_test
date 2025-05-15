@@ -1,0 +1,35 @@
+// .devcontainer/devcontainer.json
+{
+  "name": "AI-Free Environment",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        // Disable Copilot
+        "github.copilot.enable": {
+            "*": false,
+            "plaintext": false,
+            "markdown": false,
+            "scminput": false
+        },
+        "github.copilot.chat.codesearch.enabled": false,
+        // Optional: restrict other suggestions
+        "editor.quickSuggestions": {
+          "other": false,
+          "comments": false,
+          "strings": false
+        },
+        "editor.suggest.showWords": false,
+        "editor.suggest.showSnippets": false
+      },
+      "extensions": [
+        // DO NOT include Copilot or AI extensions
+        // Optionally: preinstall a linter, Prettier, etc.
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode"
+      ]
+    }
+  },
+  "features": {},
+  "postCreateCommand": "echo '✅ AI tools have been disabled in this container.'"
+}
