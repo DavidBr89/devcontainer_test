@@ -2,7 +2,7 @@
 {
   "name": "AI-Free Environment",
   "build": {
-    "dockerfile": "Dockerfile"
+    "dockerfile": "DockerFile"
   },
   "customizations": {
     "vscode": {
