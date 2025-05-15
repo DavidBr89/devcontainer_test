@@ -1,0 +1,40 @@
+# Base image with Node.js (replace with your language stack as needed)
+FROM mcr.microsoft.com/devcontainers/javascript-node:20
+
+# -----------------------------------------------
+# 1. Remove tools that allow downloading/installing
+# -----------------------------------------------
+RUN apt-get update && \
+    apt-get remove -y curl wget git && \
+    apt-get purge -y && \
+    apt-get autoremove -y && \
+    rm -rf /var/lib/apt/lists/*
+
+# -----------------------------------------------
+# 2. Remove all pre-installed VS Code extensions
+# -----------------------------------------------
+RUN rm -rf /root/.vscode-server/extensions/* \
+    /root/.vscode-server-insiders/extensions/* \
+    /root/.vscode-test/extensions/* \
+    /home/vscode/.vscode-server/extensions/*
+
+# -----------------------------------------------
+# 3. Block Copilot and known AI-related domains
+# -----------------------------------------------
+RUN echo '\n# Block Copilot domains' >> /etc/hosts && \
+    echo '127.0.0.1 github-copilot.com' >> /etc/hosts && \
+    echo '127.0.0.1 api.githubcopilot.com' >> /etc/hosts && \
+    echo '127.0.0.1 vscode-auth.github.com' >> /etc/hosts && \
+    echo '127.0.0.1 chat.openai.com' >> /etc/hosts && \
+    echo '127.0.0.1 openai.com' >> /etc/hosts
+
+# -----------------------------------------------
+# 4. Prepare a read-only extensions folder
+# (will be mounted in devcontainer.json)
+# -----------------------------------------------
+RUN mkdir -p /root/.vscode-server/extensions
+
+# -----------------------------------------------
+# 5. Add AI policy notice
+# -----------------------------------------------
+RUN echo '🚫 This environment is AI-free. GitHub Copilot, Chat, and extensions are disabled.' > /AI_POLICY.txt

@@ -1,16 +1,24 @@
 // .devcontainer/devcontainer.json
 {
   "name": "AI-Free Environment",
-  "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
   "customizations": {
     "vscode": {
       "settings": {
         // Disable Copilot
         "github.copilot.enable": {
-            "*": false,
-            "plaintext": false,
-            "markdown": false,
-            "scminput": false
+          "*": false,
+          "plaintext": false,
+          "markdown": false,
+          "scminput": false,
+          "yaml": false,
+          "html": false,
+          "javascript": false,
+          "dart": false,
+          "prisma": false,
+          "jsonc": false
         },
         "github.copilot.chat.codesearch.enabled": false,
         // Optional: restrict other suggestions
